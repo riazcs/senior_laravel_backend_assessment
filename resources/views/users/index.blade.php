@@ -47,7 +47,7 @@
                                     </td>
                                     <td class="py-4">
                                         @if ($user->profile_photo)
-                                        <img src="{{ $user->profile_photo }}" alt="User Photo" class="h-12 w-12">
+                                        <img src="{{ $user->profile_photo }}" alt="User Photo" class="h-30 w-30 rounded">
                                         @else
                                         <p>No image available</p>
                                         @endif

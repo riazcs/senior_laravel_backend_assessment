@@ -38,7 +38,7 @@ class UserController extends Controller
             $imagePath = $request->file('profile_photo')->move('images');
             $data['profile_photo'] = $imagePath;
         }
-        
+
         $data['password'] = Hash::make($request->input('password'));
         $user = $this->userService->createUser($data);
         event(new UserSaved($user));
@@ -64,7 +64,14 @@ class UserController extends Controller
             $imagePath = $request->file('profile_photo')->move('images');
             $data['profile_photo'] = $imagePath;
         }
-        $this->userService->updateUser($id, $data);
+        $user = $this->userService->updateUser($id, $data);
+        $addresses = $request->input('addresses');
+        if ($addresses) {
+            $user->addresses()->delete(); 
+            foreach ($addresses as $address) {
+                $user->addresses()->create(['address' => $address]);
+            }
+        }
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 

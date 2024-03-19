@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
 {
-    protected $id;
-    public function __construct(int $id)
-    {
-        $this->id = $id;
-    }
     public function authorize(): bool
     {
         return true;
@@ -18,9 +13,11 @@ class UpdateUserRequest extends FormRequest
 
     public function rules(): array
     {
+        $id = $this->route('user');
+
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'profile_photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }

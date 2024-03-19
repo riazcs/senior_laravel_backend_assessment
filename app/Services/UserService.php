@@ -14,7 +14,7 @@ class UserService implements UserServiceInterface
 
     public function getUserById($id)
     {
-        return User::findOrFail($id);
+        return User::with('addresses')->findOrFail($id);
     }
 
     public function createUser(array $data)

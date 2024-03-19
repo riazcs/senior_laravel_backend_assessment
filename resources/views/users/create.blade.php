@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('User') }}
+            {{ __('Add User') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                <div class="max-w-4xl">
                     <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                         @csrf
 
@@ -44,9 +44,9 @@
                             <div id="address-fields">
                                 <div class="flex items-center space-x-4 mt-2">
                                     <x-text-input id="address_1" class="block w-full" type="text" name="addresses[]" :value="old('addresses.0')" placeholder="Address 1" />
-                                    <!-- <button type="button" class="px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" onclick="removeAddressField(this)">Remove</button> -->
-                                    <button type="button" onclick="addAddressField()" class="mt-2 py-1 px-3  text-white rounded hover:bg-blue-600">Add Address</button>
+                                    <button type="button" class="px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" onclick="removeAddressField(this)">Remove</button>
                                 </div>
+                                <button type="button" onclick="addAddressField()" class="mt-2 py-1 px-3 bg-blue-500 text-white rounded hover:bg-blue-600">Add Address</button>
                             </div>
                         </div>
                         <!-- Password -->
@@ -76,7 +76,6 @@
         </div>
     </div>
 </x-app-layout>
-@section('script')
 <script>
     let addressFieldIndex = 1;
 
@@ -98,4 +97,3 @@
         addressField.remove();
     }
 </script>
-@endsection
