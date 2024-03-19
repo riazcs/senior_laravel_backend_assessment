@@ -46,16 +46,20 @@
                                         {{$user->designation}}
                                     </td>
                                     <td class="py-4">
-                                        <img src="{{ $user->profile_photo }}" alt="User Photo" class="h-10 w-10 rounded-full">
+                                        @if ($user->profile_photo)
+                                        <img src="{{ $user->profile_photo }}" alt="User Photo" class="h-12 w-12">
+                                        @else
+                                        <p>No image available</p>
+                                        @endif
                                     </td>
                                     <td class="py-4 text-right">
-                                        <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                         @if ($user->trashed())
                                         <form action="{{ route('users.restore', $user->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="text-blue-600 dark:text-blue-500 hover:underline">Restore</button>
                                         </form>
-                                        @endif
+                                        @else
+                                        <a href="{{ route('users.edit', $user->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                         <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -66,6 +70,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 dark:text-red-500 hover:underline">Permanently Delete</button>
                                         </form>
+                                        @endif
 
                                     </td>
                                 </tr>

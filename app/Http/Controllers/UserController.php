@@ -38,7 +38,7 @@ class UserController extends Controller
             $imagePath = $request->file('profile_photo')->move('images');
             $data['profile_photo'] = $imagePath;
         }
-
+        
         $data['password'] = Hash::make($request->input('password'));
         $user = $this->userService->createUser($data);
         event(new UserSaved($user));

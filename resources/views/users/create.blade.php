@@ -39,6 +39,16 @@
                             <x-input-error :messages="$errors->get('profile_photo')" class="mt-2" />
                         </div>
 
+                        <div class="mt-4">
+                            <x-input-label for="addresses" :value="__('Addresses')" />
+                            <div id="address-fields">
+                                <div class="flex items-center space-x-4 mt-2">
+                                    <x-text-input id="address_1" class="block w-full" type="text" name="addresses[]" :value="old('addresses.0')" placeholder="Address 1" />
+                                    <!-- <button type="button" class="px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" onclick="removeAddressField(this)">Remove</button> -->
+                                    <button type="button" onclick="addAddressField()" class="mt-2 py-1 px-3  text-white rounded hover:bg-blue-600">Add Address</button>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Password -->
                         <div class="mt-4">
                             <x-input-label for="password" :value="__('Password')" />
@@ -66,3 +76,26 @@
         </div>
     </div>
 </x-app-layout>
+@section('script')
+<script>
+    let addressFieldIndex = 1;
+
+    function addAddressField() {
+        addressFieldIndex++;
+
+        const addressField = `
+            <div id="address_${addressFieldIndex}" class="flex items-center space-x-4 mt-2">
+                <x-text-input class="block w-full" type="text" name="addresses[]" placeholder="Address ${addressFieldIndex}" required />
+                <button type="button" class="px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" onclick="removeAddressField(${addressFieldIndex})">Remove</button>
+            </div>
+        `;
+
+        document.getElementById('address-fields').insertAdjacentHTML('beforeend', addressField);
+    }
+
+    function removeAddressField(index) {
+        const addressField = document.getElementById(`address_${index}`);
+        addressField.remove();
+    }
+</script>
+@endsection
